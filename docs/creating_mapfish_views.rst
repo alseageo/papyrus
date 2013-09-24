@@ -223,7 +223,7 @@ Using view functions here's how our web service implementation would look like::
 
     @view_config(route_name='spots_md', renderer='xsd')
     def md(request):
-        return Spot.__table__
+        return Spot
 
 View functions are typically defined in a file named ``views.py``. The first
 six views define the MapFish web service. The seventh view (``md``) provides
@@ -298,7 +298,7 @@ Using a handler here's what our web service implementation would look like::
 
         @action(renderer='xsd')
         def md(self):
-            return Spot.__table__
+            return Spot
 
 The six actions of the ``SpotHandler`` class entirely define our MapFish web
 service.
