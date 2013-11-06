@@ -1,4 +1,3 @@
-
 # Copyright (c) 2008-2011 Camptocamp.
 # All rights reserved.
 #
@@ -262,7 +261,10 @@ class Protocol(object):
             offset = int(request.params['offset'])
         if filter is None:
             filter = create_filter(request, self.mapped_class, self.geom_attr)
-        query = self.Session().query(self.mapped_class).filter(filter)
+        if filter is None:
+            query = self.Session().query(self.mapped_class)
+        else:
+            query = self.Session().query(self.mapped_class).filter(filter)
         order_by = self._get_order_by(request)
         if order_by is not None:
             query = query.order_by(order_by)
@@ -273,7 +275,10 @@ class Protocol(object):
         """ Return the number of records matching the given filter. """
         if filter is None:
             filter = create_filter(request, self.mapped_class, self.geom_attr)
-        return self.Session().query(self.mapped_class).filter(filter).count()
+        if filter is None:
+            return self.Session().query(self.mapped_class).count()
+        else:
+            return self.Session().query(self.mapped_class).filter(filter).count()
 
     def read(self, request, filter=None, id=None):
         """ Build a query based on the filter or the idenfier, send the query
