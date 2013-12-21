@@ -24,7 +24,7 @@ class GeoJSONEncoder(PyGFPEncoder):
         return PyGFPEncoder.default(self, obj)
 
 
-dumps = functools.partial(_dumps, cls=GeoJSONEncoder, use_decimal=True)
+dumps = functools.partial(_dumps, cls=GeoJSONEncoder)
 """
 A partial function for ``geojson.dumps`` that sets ``cls`` to
 :class:`GeoJSONEncoder` and ``use_decimal`` to ``True``.
